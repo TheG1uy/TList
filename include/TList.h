@@ -18,7 +18,7 @@ public:
 	}
 	void sortInput(T a){
 		if (pFirst==pStop || a<pFirst->val ) { addFirst(a); return ;}
-		if (a>pLast->val){ addLast(a); return ;}
+		if (a>=pLast->val){ addLast(a); return ;}
 		for(reset();!isEnd();goNext()){
 			if (pCurr->val>a) {addCurr(a); return; }
 		}
