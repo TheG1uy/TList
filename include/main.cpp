@@ -7,6 +7,8 @@ int main(){
 	
 	a.sortInput(5);
 	a.sortInput(2);
+	a.delCurr();
+
 	a.sortInput(2);
 	a.sortInput(1);
 	a.sortInput(7);
@@ -17,6 +19,8 @@ int main(){
 	a.sortInput(6);
 	a.sortInput(8);
 	a.sortInput(8);
+	a.sortInput(1);
+	
 	for(a.reset();!a.isEnd();a.goNext()){cout<<a.getElelm()<<endl;}
 	cout<<endl;
 	//a.sotrB();

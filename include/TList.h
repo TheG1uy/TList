@@ -17,8 +17,8 @@ public:
 		pos=-1;
 	}
 	void sortInput(T a){
-		if (pFirst==pStop || a<pFirst->val ) { addFirst(a); return ;}
-		if (a>=pLast->val){ addLast(a); return ;}
+		if (pFirst==pStop || a<pFirst->val ) { addFirst(a); pCurr=pPrev=pFirst; return ;}
+		if (a>=pLast->val){ addLast(a); for(reset();!(pCurr->pNext==pStop);goNext()){} return ;}
 		for(reset();!isEnd();goNext()){
 			if (pCurr->val>a) {addCurr(a); return; }
 		}
@@ -112,6 +112,7 @@ public:
 			delete pPrev->pNext;
 			pPrev->pNext=pCurr;
 			size--;
+
 		}
 	}
 	void delLast (){
@@ -130,7 +131,7 @@ public:
 		pos=0;
 	}
 	void goNext (){
-		if (pFirst->pNext==pStop) pPrev=pFirst;
+		if (pFirst->pNext==pStop && (size-1)) pPrev=pFirst;
 		else{
 		pPrev=pCurr;
 		pCurr=pCurr->pNext;
