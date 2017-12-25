@@ -131,12 +131,10 @@ public:
 		pos=0;
 	}
 	void goNext (){
-		if (pFirst->pNext==pStop && (size-1)) pPrev=pFirst;
-		else{
 		pPrev=pCurr;
 		pCurr=pCurr->pNext;
 		pos++;
-		}
+		
 	}
 	bool isEnd (){
 		return pCurr==pStop;
