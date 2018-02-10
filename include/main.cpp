@@ -1,9 +1,12 @@
 #include "TList.h"
+#include "THeadList.h"
 #include <cstdlib>
 #include <time.h>
 int main(){
 	TList<int> a;
-
+	THeadList<int> b;
+	b.addFirst(5);
+/*
 	
 	a.sortInput(5);
 	a.sortInput(2);
@@ -25,5 +28,6 @@ int main(){
 	cout<<endl;
 	//a.sotrB();
 	//for(a.reset();!a.isEnd();a.goNext()){cout<<a.getElelm()<<endl;}
+	*/
 	return 0;
 }

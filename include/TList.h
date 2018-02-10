@@ -8,6 +8,7 @@ struct TLink {
 };
 template <class T> 
 class TList{
+protected:
 	TLink<T> *pFirst, *pLast, *pPrev, *pCurr, *pStop;
 	int size, pos;
 public:
@@ -41,7 +42,7 @@ public:
 			}
 		}
 	}
-	void addFirst (T a){
+	virtual void addFirst (T a){
 		TLink<T> *tmp=new TLink <T>;
 		tmp->val=a;
 		if (size==0)
@@ -74,7 +75,7 @@ public:
 		
 	}
 	void addLast (T a){
-		if (pFirst==pStop) addFirst(a);
+		if (pFirst==NULL) addFirst(a);
 		else{
              TLink<T> *tmp=new TLink<T>;
 			 tmp->val=a;
@@ -86,7 +87,7 @@ public:
 		
 	}
 	T getElelm(){ return pCurr->val; }
-	void delFirst (){
+	virtual void delFirst (){
 		if (size==1)
 		{
 			delete pFirst;
@@ -118,10 +119,10 @@ public:
 	void delLast (){
 	  if (pLast==pFirst) delFirst();
 	  else{
-		  for(reset();!(pCurr->pNext==pStop);goNext()){}
+		  for(reset();!(pCurr==pLast);goNext()){}
 		  delete pLast;
 		  pLast=pCurr=pPrev;
-	      reset();
+		  pLast->pNext=pStop;
 		  size--;
 		  pos--;
 	  }
@@ -148,5 +149,13 @@ public:
 			if (pos==m-1)
 			return pCurr->val;
 		}
-	}	
+	}
+	~TList(){
+		int listsize=size;
+		for(int i=0;i<listsize;i++)
+			delFirst();
+		
+		
+		
+	}
 };
