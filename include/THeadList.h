@@ -1,3 +1,4 @@
+#pragma once
 #include "TList.h"
 template <class T>
 class THeadList:public TList<T>{
@@ -6,7 +7,6 @@ public:
 	THeadList():TList(){
 		TLink<T> *tmp=new TLink<T>;
 		pHead=tmp;
-		tmp->val=-1;
 		pStop=tmp;
 		tmp->pNext=pStop;
 		size=0;

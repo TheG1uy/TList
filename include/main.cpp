@@ -2,10 +2,24 @@
 #include "THeadList.h"
 #include <cstdlib>
 #include <time.h>
+#include "TPolinom.h"
 int main(){
 	TList<int> a;
 	THeadList<int> b;
-	b.addFirst(5);
+	TMonom p,q;
+	p.coeff=10;
+	q.coeff=-50;
+	p.x=12;
+	p.y=8;
+	p.z=7;
+	q.x=1;
+	q.y=8;
+	q.z=7;
+	TPolinom pol(p);
+	pol.sortInput(q);
+    cout<<pol<<endl;
+
+
 /*
 	
 	a.sortInput(5);

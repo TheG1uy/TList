@@ -153,9 +153,6 @@ public:
 	~TList(){
 		int listsize=size;
 		for(int i=0;i<listsize;i++)
-			delFirst();
-		
-		
-		
+			delFirst();	
 	}
 };
