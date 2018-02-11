@@ -105,17 +105,17 @@ public:
 		return tmp;
 	}
 	TPolinom operator-( TPolinom &p){
-		TPolinom tmp(*this);
-		p*=-1;
-		p.reset();
+		TPolinom tmp(*this),tmp2(p);
+		tmp2*=-1;
+		tmp2.reset();
 		for(reset();!isEnd();goNext()){
-			for(p.pCurr;(p.pCurr->val>pCurr->val && !p.isEnd());p.goNext()){
-				tmp.sortInput(p.pCurr->val);
+			for(tmp2.pCurr;(tmp2.pCurr->val>pCurr->val && !tmp2.isEnd());tmp2.goNext()){
+				tmp.sortInput(tmp2.pCurr->val);
 			}
 		}
-		if (isEnd() && !p.isEnd()) 
-			for(p.pCurr;!p.isEnd();p.goNext())
-				tmp.sortInput(p.pCurr->val);
+		if (isEnd() && !tmp2.isEnd()) 
+			for(tmp2.pCurr;!tmp2.isEnd();tmp2.goNext())
+				tmp.sortInput(tmp2.pCurr->val);
 		return tmp;
 		
 	}
@@ -129,6 +129,12 @@ public:
 	void operator*=(double a){
        for(reset();!isEnd();goNext())
 		   pCurr->val.coeff*=a;	   
+	}
+	TPolinom operator*(double a){
+        TPolinom tmp(*this);
+		for(reset();!isEnd();goNext())
+			tmp.pCurr->val.coeff*=a;	
+		return tmp;		 
 	}
 	friend ostream& operator<<(ostream& os,TPolinom &p){
 	  for(p.reset();!p.isEnd();p.goNext()){

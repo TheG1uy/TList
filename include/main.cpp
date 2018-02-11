@@ -24,6 +24,8 @@ int main(){
 	TPolinom pol1(mas,size),pol2;
 	pol2.sortInput(q);
 	cout<<pol1<<endl;
+	cout<<pol1+pol2<<endl;
+	cout<<pol1-pol2<<endl;
     cout<<pol1*pol2<<endl;
 
 
