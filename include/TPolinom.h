@@ -1,5 +1,8 @@
 #pragma once
 #include "THeadList.h"
+#include "cstdlib"
+#include "time.h"
+
 struct TMonom{
 	double coeff;
 	int x,y,z;
@@ -23,12 +26,26 @@ struct TMonom{
 		return (coeff==q.coeff);
 	else return false;
 	}
+	TMonom operator*(const TMonom &q){
+		TMonom tmp;
+		tmp.x=q.x+x;
+		tmp.y=q.y+y;
+		tmp.z=q.z+z;
+		tmp.coeff=q.coeff*coeff;
+		return tmp;
+	}
 	TMonom& operator=(const TMonom &q){
 		coeff=q.coeff;
 		x=q.x;
 		y=q.y;
 		z=q.z;
 		return *this;
+	}
+	void randomManom(){
+		coeff=rand() % 20+1;
+		x=rand() % 10+1;
+		y=rand() % 10+1;
+		z=rand() % 10+1;
 	}
 };
 ostream& operator<<(ostream& os, const TMonom& m){
@@ -41,6 +58,11 @@ public:
 		pHead->val.coeff=0;
 		pHead->val.x=-1;
 	}
+	TPolinom(TPolinom &p):THeadList(){
+		for(p.reset();!p.isEnd();p.goNext()){
+			sortInput(p.pCurr->val);
+		}
+	}
 	TPolinom(const TMonom &m):THeadList(){
         TLink<TMonom> *tmp=new TLink<TMonom>;
 		tmp->pNext=pStop;
@@ -49,9 +71,11 @@ public:
 		pFirst=pLast=pCurr=tmp;
 	}
 	void sortInput(const TMonom &a){
+		if (!size) { addFirst(a); return;}
 		for(reset();!isEnd();goNext()){
 			if (pCurr->val.EqualDegrees(a)){
 				pCurr->val.coeff+=a.coeff;
+				return;
 				if (!pCurr->val.coeff) delCurr();
 				return;
 			}
@@ -59,21 +83,52 @@ public:
 				addCurr(a);
 				return;
 			}
-            addLast(a);
 		}
+		addLast(a);
+		
 	}
-	TPolinom(const TMonom *mas,int size){
+	TPolinom(TMonom *mas,int size){
 		for(int i=0;i<size;i++)
 		  	sortInput(mas[i]);
 	}
-	TPolinom operator+(const TPolinom &p){
+	TPolinom operator+(TPolinom &p){
+		TPolinom tmp(*this);
+		p.reset();
+		for(reset();!isEnd();goNext()){
+			for(p.pCurr;(p.pCurr->val>pCurr->val && !p.isEnd());p.goNext()){
+				tmp.sortInput(p.pCurr->val);
+			}
+		}
+		if (isEnd() && !p.isEnd()) 
+			for(p.pCurr;!p.isEnd();p.goNext())
+				tmp.sortInput(p.pCurr->val);
+		return tmp;
+	}
+	TPolinom operator-( TPolinom &p){
+		TPolinom tmp(*this);
+		p*=-1;
+		p.reset();
+		for(reset();!isEnd();goNext()){
+			for(p.pCurr;(p.pCurr->val>pCurr->val && !p.isEnd());p.goNext()){
+				tmp.sortInput(p.pCurr->val);
+			}
+		}
+		if (isEnd() && !p.isEnd()) 
+			for(p.pCurr;!p.isEnd();p.goNext())
+				tmp.sortInput(p.pCurr->val);
+		return tmp;
 		
 	}
-	TPolinom operator-(const TPolinom &p){
-		
+	TPolinom operator*(TPolinom &p){
+        TPolinom tmp(*this);
+		for(p.reset();!p.isEnd();p.goNext())
+			for(tmp.reset();!tmp.isEnd();tmp.goNext())
+				tmp.pCurr->val=tmp.pCurr->val*p.pCurr->val;	
+		return tmp;		
 	}
-	TPolinom operator*(const TPolinom &p){
-		
+	void operator*=(double a){
+       for(reset();!isEnd();goNext())
+		   pCurr->val.coeff*=a;	   
 	}
 	friend ostream& operator<<(ostream& os,TPolinom &p){
 	  for(p.reset();!p.isEnd();p.goNext()){

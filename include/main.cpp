@@ -4,20 +4,27 @@
 #include <time.h>
 #include "TPolinom.h"
 int main(){
+	srand(time(NULL));
 	TList<int> a;
 	THeadList<int> b;
-	TMonom p,q;
+	TMonom p,q,*mas;
+	int size=3;
+	mas=new TMonom[size];
+	for(int i=0;i<size;i++)
+		mas[i].randomManom();
+	
 	p.coeff=10;
-	q.coeff=-50;
+	q.coeff=2;
 	p.x=12;
 	p.y=8;
 	p.z=7;
-	q.x=1;
+	q.x=2;
 	q.y=8;
 	q.z=7;
-	TPolinom pol(p);
-	pol.sortInput(q);
-    cout<<pol<<endl;
+	TPolinom pol1(mas,size),pol2;
+	pol2.sortInput(q);
+	cout<<pol1<<endl;
+    cout<<pol1*pol2<<endl;
 
 
 /*
