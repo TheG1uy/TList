@@ -2,11 +2,51 @@
 #include "THeadList.h"
 #include "cstdlib"
 #include "time.h"
-
+#include  <string>
 struct TMonom{
 	double coeff;
 	int x,y,z;
 
+	TMonom toMonom(string st){
+		string tmp="";		
+		int i=0;
+		x=0;
+		y=0;
+		z=0;
+		while ((st[i]>='0' && st[i]<='9' || st[i]<='-' ) && i<st.size()){
+			tmp+=st[i];
+			i++;
+		}
+		coeff=(int)atof(tmp.c_str());
+		tmp="";
+		if (st.find('x')!=-1){
+			i=st.find('x')+2;
+			while ((st[i]>='0' && st[i]<='9' || st[i]<='-') && i<st.size()){
+			tmp+=st[i];
+			i++;
+		}
+          x=(int)atof(tmp.c_str()); tmp="";
+		}
+		if (st.find('y')!=-1){
+			i=st.find('y')+2;
+			while ((st[i]>='0' && st[i]<='9' || st[i]<='-') && i<st.size()){
+			tmp+=st[i];
+			i++;
+		}
+          y=(int)atof(tmp.c_str()); tmp="";
+		}
+		if (st.find('z')!=-1){
+			i=st.find('z')+2;
+			while ((st[i]>='0' && st[i]<='9' || st[i]<='-') && i<st.size()){
+			tmp+=st[i];
+			i++;
+		}
+          z=(int)atof(tmp.c_str()); tmp="";
+		}
+
+
+		return *this;
+	}
 	bool operator<(const TMonom &q){
     return ((x*100+y*10+z)<(q.x*100+q.y*10+q.z));
 	}

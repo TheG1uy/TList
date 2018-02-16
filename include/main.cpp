@@ -12,7 +12,7 @@ int main(){
 	mas=new TMonom[size];
 	for(int i=0;i<size;i++)
 		mas[i].randomManom();
-	
+	cout<<p.toMonom("-122z^3")<<endl;
 	p.coeff=10;
 	q.coeff=2;
 	p.x=12;
@@ -22,11 +22,11 @@ int main(){
 	q.y=8;
 	q.z=7;
 	TPolinom pol1(mas,size),pol2;
-	pol2.sortInput(q);
-	cout<<pol1<<endl;
-	cout<<pol1+pol2<<endl;
-	cout<<pol1-pol2<<endl;
-    cout<<pol1*pol2<<endl;
+//	pol2.sortInput(q);
+	//cout<<pol1<<endl;
+	//cout<<pol1+pol2<<endl;
+	//cout<<pol1-pol2<<endl;
+   // cout<<pol1*pol2<<endl;
 
 
 /*
