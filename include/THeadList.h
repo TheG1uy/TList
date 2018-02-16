@@ -16,7 +16,10 @@ public:
 		delete pHead;
 		//pHead=pStop=NULL;
 	}
-		virtual void delFirst (){
+	void clearList(){
+		TList<T>::~TList();
+	}
+	virtual void delFirst (){
 		if (size==1)
 		{
 			delete pFirst;
