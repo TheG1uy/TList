@@ -154,7 +154,7 @@ namespace Gr_polinom {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(488, 474);
+			this->ClientSize = System::Drawing::Size(488, 150);
 			this->Controls->Add(this->label1);
 			this->Controls->Add(this->button4);
 			this->Controls->Add(this->button3);
@@ -164,7 +164,6 @@ namespace Gr_polinom {
 			this->Controls->Add(this->textBox1);
 			this->Name = L"Form1";
 			this->Text = L"Form1";
-			
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
