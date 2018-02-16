@@ -89,7 +89,10 @@ struct TMonom{
 	}
 };
 ostream& operator<<(ostream& os, const TMonom& m){
-	os<<m.coeff<<"x^"<<m.x<<"y^"<<m.y<<"z^"<<m.z;
+	os<<m.coeff;
+	if (m.x) os<<"x^"<<m.x;
+	if (m.y) os<<"y^"<<m.y;
+	if (m.z) os<<"z^"<<m.z;
 	return os;
 	}
 class TPolinom: public THeadList<TMonom>{
