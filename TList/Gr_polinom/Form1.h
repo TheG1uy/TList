@@ -159,10 +159,13 @@ namespace Gr_polinom {
 				 String^ tmp="";
 				 for(p.reset();!p.isEnd();p.goNext()){
 					 if (!p.isStart() && p.getCoeffM()>0) tmp+="+";
-					 tmp+=p.getCoeffM();
-					 if (p.getXM()) tmp+="x^"+p.getXM();
-					 if (p.getYM()) tmp+="y^"+p.getYM();
-					 if (p.getZM()) tmp+="z^"+p.getZM();
+					 if (p.getCoeffM()!=1) tmp+=p.getCoeffM();
+					 if (p.getXM()) if (p.getXM()>1) tmp+="x^"+p.getXM();
+					                else tmp+="x";
+					 if (p.getYM()) if (p.getYM()>1) tmp+="y^"+p.getYM();
+					                else tmp+="y";
+					 if (p.getZM()) if (p.getZM()>1) tmp+="z^"+p.getZM();
+					                else tmp+="z";
 				 }
 				 return tmp;
 		}
