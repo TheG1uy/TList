@@ -157,11 +157,12 @@ namespace Gr_polinom {
 	private: String^ PolToString(TPolinom &p){
 
 				 String^ tmp="";
-				
-				 tmp+=m.coeff;
-				 if (m.x) tmp+="x^"+m.x;
-				 if (m.y) tmp+="y^"+m.y;
-				 if (m.z) tmp+="y^"+m.y;
+				 for(p.reset();!p.isEnd();p.goNext()){
+					 if (!p.isStart() && p.getCoeffM()>0) tmp+="+";
+					 tmp+=p.getCoeffM();
+					 if (p.getXM()) tmp+="x^"+p.getXM();
+					 if (p.getYM()) tmp+="y^"+p.getYM();
+					 if (p.getZM()) tmp+="z^"+p.getZM();
 				 }
 				 return tmp;
 		}
@@ -190,9 +191,9 @@ namespace Gr_polinom {
 	private: System::Void button4_Click(System::Object^  sender, System::EventArgs^  e) {
 				 if (k==10) k=0;
 				 toPolinom(textBox1->Text,k);
-				 k++;
 				 textBox1->Text="";
-				 label1->Text=
+				 label1->Text=PolToString(p[k]);
+				  k++;
 		 }
 };
 }

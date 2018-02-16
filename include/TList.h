@@ -140,6 +140,9 @@ public:
 	bool isEnd (){
 		return pCurr==pStop;
 	}
+	bool isStart(){
+		return pCurr==pFirst;
+	}
 
 	bool isEmpty(){
 		return pFirst==pStop;

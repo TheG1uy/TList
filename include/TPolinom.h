@@ -13,35 +13,41 @@ struct TMonom{
 		x=0;
 		y=0;
 		z=0;
-		while ((st[i]>='0' && st[i]<='9' || st[i]<='-' ) && i<st.size()){
+		coeff=1;
+		while ((st[i]>='0' && st[i]<='9' || st[i]=='-' ) && i<st.size()){
 			tmp+=st[i];
 			i++;
 		}
+		if (tmp.size())
 		coeff=(int)atof(tmp.c_str());
 		tmp="";
 		if (st.find('x')!=-1){
-			i=st.find('x')+2;
-			while ((st[i]>='0' && st[i]<='9' || st[i]<='-') && i<st.size()){
-			tmp+=st[i];
+			i=st.find('x')+1;
+			while ((st[i]>='0' && st[i]<='9' || st[i]=='^' || st[i]=='-') && i<st.size()){
 			i++;
+			tmp+=st[i];			
 		}
-          x=(int)atof(tmp.c_str()); tmp="";
+		  if (!tmp.size()) x=1;
+          else x=(int)atof(tmp.c_str()); tmp="";
 		}
 		if (st.find('y')!=-1){
-			i=st.find('y')+2;
-			while ((st[i]>='0' && st[i]<='9' || st[i]<='-') && i<st.size()){
-			tmp+=st[i];
+			i=st.find('y')+1;
+			while ((st[i]>='0' && st[i]<='9' || st[i]=='^' || st[i]=='-') && i<st.size()){
 			i++;
+			tmp+=st[i];
+			
 		}
-          y=(int)atof(tmp.c_str()); tmp="";
+          if (!tmp.size()) y=1;
+          else y=(int)atof(tmp.c_str()); tmp="";
 		}
 		if (st.find('z')!=-1){
-			i=st.find('z')+2;
-			while ((st[i]>='0' && st[i]<='9' || st[i]<='-') && i<st.size()){
-			tmp+=st[i];
+			i=st.find('z')+1;
+			while ((st[i]>='0' && st[i]<='9' || st[i]=='^' || st[i]<='-') && i<st.size()){
 			i++;
+			tmp+=st[i];			
 		}
-          z=(int)atof(tmp.c_str()); tmp="";
+          if (!tmp.size()) z=1;
+          else z=(int)atof(tmp.c_str()); tmp="";
 		}
 
 
@@ -90,9 +96,12 @@ struct TMonom{
 };
 ostream& operator<<(ostream& os, const TMonom& m){
 	os<<m.coeff;
-	if (m.x) os<<"x^"<<m.x;
-	if (m.y) os<<"y^"<<m.y;
-	if (m.z) os<<"z^"<<m.z;
+	if (m.x) if (m.x>1) os<<"x^"<<m.x;
+	         else  os<<"x";
+	if (m.y) if (m.y>1) os<<"y^"<<m.y;
+	         else  os<<"y";
+	if (m.z) if (m.z>1) os<<"z^"<<m.z;
+	         else  os<<"z";
 	return os;
 	}
 class TPolinom: public THeadList<TMonom>{
@@ -185,7 +194,7 @@ public:
 	int getXM(){
 		return pCurr->val.x;
 	}
-	int getYfM(){
+	int getYM(){
 		return pCurr->val.y;
 	}
 	int getZM(){
