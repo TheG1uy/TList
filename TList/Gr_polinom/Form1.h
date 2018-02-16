@@ -24,6 +24,8 @@ namespace Gr_polinom {
 	public:
 		TPolinom *p;
 		int k;
+	private: System::Windows::Forms::Label^  label1;
+	public: 
 	private: System::Windows::Forms::Button^  button4;
 	public: 
 		Form1(void)
@@ -71,6 +73,7 @@ namespace Gr_polinom {
 			this->button2 = (gcnew System::Windows::Forms::Button());
 			this->button3 = (gcnew System::Windows::Forms::Button());
 			this->button4 = (gcnew System::Windows::Forms::Button());
+			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->SuspendLayout();
 			// 
 			// textBox1
@@ -123,11 +126,21 @@ namespace Gr_polinom {
 			this->button4->UseVisualStyleBackColor = true;
 			this->button4->Click += gcnew System::EventHandler(this, &Form1::button4_Click);
 			// 
+			// label1
+			// 
+			this->label1->AutoSize = true;
+			this->label1->Location = System::Drawing::Point(48, 138);
+			this->label1->Name = L"label1";
+			this->label1->Size = System::Drawing::Size(35, 13);
+			this->label1->TabIndex = 3;
+			this->label1->Text = L"label1";
+			// 
 			// Form1
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(488, 474);
+			this->Controls->Add(this->label1);
 			this->Controls->Add(this->button4);
 			this->Controls->Add(this->button3);
 			this->Controls->Add(this->button2);
@@ -141,14 +154,25 @@ namespace Gr_polinom {
 
 		}
 #pragma endregion
+	private: String^ PolToString(TPolinom &p){
+
+				 String^ tmp="";
+				
+				 tmp+=m.coeff;
+				 if (m.x) tmp+="x^"+m.x;
+				 if (m.y) tmp+="y^"+m.y;
+				 if (m.z) tmp+="y^"+m.y;
+				 }
+				 return tmp;
+		}
 	private: string MarshalString ( String ^ s) {  
-			string os;
-			 using namespace Runtime::InteropServices;  
-			 const char* chars =   
-			(const char*)(Marshal::StringToHGlobalAnsi(s)).ToPointer();  
-			 os = chars;  
-			Marshal::FreeHGlobal(IntPtr((void*)chars));  
-			return os;
+				string os;
+			    using namespace Runtime::InteropServices;  
+				const char* chars =   
+			    (const char*)(Marshal::StringToHGlobalAnsi(s)).ToPointer();  
+			    os = chars;  
+				Marshal::FreeHGlobal(IntPtr((void*)chars));  
+				return os;
        }  
 	private : void toPolinom(String^ a,int k){
 				  TMonom q;
@@ -164,10 +188,11 @@ namespace Gr_polinom {
 	private: System::Void Form1_Load(System::Object^  sender, System::EventArgs^  e) {
 			 }
 	private: System::Void button4_Click(System::Object^  sender, System::EventArgs^  e) {
-			if (k==10) k=0;
-			 toPolinom(textBox1->Text,k);
-			 k++;
-             textBox1->Text="";
+				 if (k==10) k=0;
+				 toPolinom(textBox1->Text,k);
+				 k++;
+				 textBox1->Text="";
+				 label1->Text=
 		 }
 };
 }

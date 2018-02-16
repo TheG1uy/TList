@@ -179,6 +179,18 @@ public:
 			tmp.pCurr->val.coeff*=a;	
 		return tmp;		 
 	}
+	double getCoeffM(){
+		return pCurr->val.coeff;
+	}
+	int getXM(){
+		return pCurr->val.x;
+	}
+	int getYfM(){
+		return pCurr->val.y;
+	}
+	int getZM(){
+		return pCurr->val.z;
+	}
 	friend ostream& operator<<(ostream& os,TPolinom &p){
 	  for(p.reset();!p.isEnd();p.goNext()){
 		if (!p.pos) os<<p.pCurr->val;
