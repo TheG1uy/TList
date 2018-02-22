@@ -145,7 +145,7 @@ public:
 	}
 
 	bool isEmpty(){
-		return pFirst==pStop;
+		return pFirst==NULL;
 	}
 	T operator[](int m){
 		for(reset();!isEnd();goNext()){

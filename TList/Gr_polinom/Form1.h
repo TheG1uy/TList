@@ -164,17 +164,18 @@ namespace Gr_polinom {
 			this->Controls->Add(this->textBox1);
 			this->Name = L"Form1";
 			this->Text = L"Form1";
+			this->Load += gcnew System::EventHandler(this, &Form1::Form1_Load_1);
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
 		}
 #pragma endregion
 	private: String^ PolToString(TPolinom &p){
-
+				 if (p.isEmpty()) return "0";
 				 String^ tmp="";
 				 for(p.reset();!p.isEnd();p.goNext()){
 					 if (!p.isStart() && p.getCoeffM()>0) tmp+="+";
-					 if (p.getCoeffM()!=1) tmp+=p.getCoeffM();
+					 if (p.getCoeffM()!=1 || (!p.getXM() && !p.getYM() && !p.getZM())) tmp+=p.getCoeffM();
 					 if (p.getXM()) if (p.getXM()>1) tmp+="x^"+p.getXM();
 					                else tmp+="x";
 					 if (p.getYM()) if (p.getYM()>1) tmp+="y^"+p.getYM();
@@ -223,6 +224,8 @@ private: System::Void button2_Click(System::Object^  sender, System::EventArgs^ 
 			   label1->Text=PolToString(p[0]-p[1]);
 		 }
 private: System::Void Form1_Load(System::Object^  sender, System::EventArgs^  e) {
+		 }
+private: System::Void Form1_Load_1(System::Object^  sender, System::EventArgs^  e) {
 		 }
 };
 }

@@ -95,6 +95,7 @@ struct TMonom{
 	}
 };
 ostream& operator<<(ostream& os, const TMonom& m){
+	if (!m.coeff) {os<<"0"; return os;}
 	os<<m.coeff;
 	if (m.x) if (m.x>1) os<<"x^"<<m.x;
 	         else  os<<"x";
@@ -111,9 +112,22 @@ public:
 		pHead->val.x=-1;
 	}
 	TPolinom(TPolinom &p):THeadList(){
+		pHead->val.coeff=0;
+		pHead->val.x=-1;
+		if (p.size){
+        TLink<TMonom> *tmp1=new TLink<TMonom>;
+		pHead->pNext=tmp1;
+		pFirst=pCurr=tmp1;
 		for(p.reset();!p.isEnd();p.goNext()){
-			sortInput(p.pCurr->val);
+			TLink<TMonom> *tmp2=new TLink<TMonom>;
+			pCurr->val=p.pCurr->val;
+			if (p.pos==p.size-1) {pLast=pCurr; pLast->pNext=pStop; size=p.size; break;}
+			pCurr->pNext=tmp2;
+			goNext();
+		    
 		}
+		}
+
 	}
 	TPolinom(const TMonom &m):THeadList(){
         TLink<TMonom> *tmp=new TLink<TMonom>;
@@ -122,12 +136,11 @@ public:
 		pHead->pNext=tmp;
 		pFirst=pLast=pCurr=tmp;
 	}
-	void sortInput(const TMonom &a){
+	void sortInput(TMonom a){
 		if (!size) { addFirst(a); return;}
 		for(reset();!isEnd();goNext()){
 			if (pCurr->val.EqualDegrees(a)){
 				pCurr->val.coeff+=a.coeff;
-				return;
 				if (!pCurr->val.coeff) delCurr();
 				return;
 			}
@@ -139,7 +152,9 @@ public:
 		addLast(a);
 		
 	}
-	TPolinom(TMonom *mas,int size){
+	TPolinom(TMonom *mas,int size):THeadList(){
+		pHead->val.coeff=0;
+		pHead->val.x=-1;
 		for(int i=0;i<size;i++)
 		  	sortInput(mas[i]);
 	}
@@ -172,10 +187,11 @@ public:
 		
 	}
 	TPolinom operator*(TPolinom &p){
-        TPolinom tmp(*this);
+        TPolinom tmp;
 		for(p.reset();!p.isEnd();p.goNext())
-			for(tmp.reset();!tmp.isEnd();tmp.goNext())
-				tmp.pCurr->val=tmp.pCurr->val*p.pCurr->val;	
+			for(reset();!isEnd();goNext()){
+				tmp.sortInput(pCurr->val*p.pCurr->val);	
+			}
 		return tmp;		
 	}
 	void operator*=(double a){
@@ -201,6 +217,7 @@ public:
 		return pCurr->val.z;
 	}
 	friend ostream& operator<<(ostream& os,TPolinom &p){
+		if (p.size==0) {os<<"0"; return os;}
 	  for(p.reset();!p.isEnd();p.goNext()){
 		if (!p.pos) os<<p.pCurr->val;
 		else if (p.pCurr->val.coeff>0) os<<"+ "<<p.pCurr->val;
