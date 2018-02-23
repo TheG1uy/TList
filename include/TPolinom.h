@@ -186,6 +186,23 @@ public:
 		return tmp;
 		
 	}
+	TPolinom& operator=(TPolinom &p){
+		pHead->val.coeff=0;
+		pHead->val.x=-1;
+		if (p.size){
+        TLink<TMonom> *tmp1=new TLink<TMonom>;
+		pHead->pNext=tmp1;
+		pFirst=pCurr=tmp1;
+		for(p.reset();!p.isEnd();p.goNext()){
+			TLink<TMonom> *tmp2=new TLink<TMonom>;
+			pCurr->val=p.pCurr->val;
+			if (p.pos==p.size-1) {pLast=pCurr; pLast->pNext=pStop; size=p.size; break;}
+			pCurr->pNext=tmp2;
+			goNext();   
+		}
+		return *this;
+	}
+	}
 	TPolinom operator*(TPolinom &p){
         TPolinom tmp;
 		for(p.reset();!p.isEnd();p.goNext())
